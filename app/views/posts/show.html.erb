@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+<h1>
+<% if @post.url %>
+  <%= link_to @post.title, "http://#{@post.url}" %>
+<% else %>
+  <%= @post.title %>
+<% end %>
+</h1>
+
+<p>
+  <%= @post.content %>
+</p>
+
+<p>
+  <strong>Subs:</strong><br>
+  <% @post.subs.each do |sub| %>
+    <%= sub.title %>
+    <br>
+  <% end %>
+</p>
+
+<p>
+  <strong>Author:</strong><br>
+  <%= @post.author.username %>
+</p>
+
+<label>Add Comment
+<form action="<%= comments_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <textarea name="comment[content]"></textarea>
+  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
+  <br>
+  <input type="submit">
+</form>
+</label>
+
+<br>
+<h4>Comments</h4>
+<% @post.comments.where(parent_comment_id: nil).each do |comment| %>
+  <%= render "comments/comment", comment: comment %>
+<% end %>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

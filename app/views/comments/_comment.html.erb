@@ -1,0 +1,17 @@
+<% if comment.child_comments.blank? %>
+<p>
+  <li>
+  <%= link_to comment.content, comment_url(comment) %>
+  -<%= comment.author.username %>
+  <% if current_user == comment.author %>
+    <%= button_to "Delete Comment", comment_url(comment), method: "delete" %>
+  <% end %>
+  </li>
+</p>
+<% else %>
+<ul>
+  <% comment.child_comments.each do |child| %>
+      <%= render :comment, comment: child %>
+  <% end %>
+</ul>
+<% end %>

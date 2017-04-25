@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Subs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subs.each do |sub| %>
+      <tr>
+        <td><%= link_to sub.title, sub %></td>
+        <% if current_user == sub.moderator %>
+          <td>(<%= link_to 'Edit', edit_sub_path(sub) %></td>
+          <td><%= link_to 'Delete', sub, method: :delete, data: { confirm: 'Are you sure?' } %>)</td>
+        <% end   %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if current_user %>
+  <%= link_to 'New Sub', new_sub_path %>
+<% end %>

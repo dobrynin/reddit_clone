@@ -1,0 +1,23 @@
+<%= form_for(user) do |f| %>
+<% unless flash[:errors].nil? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(flash[:errors].size, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+      <li><%= flash[:errors] %></li>
+    </ul>
+  </div>
+<% end %>
+
+  <div class="field">
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+  </div>
+
+  <%= password_field(:user, :password) %>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
